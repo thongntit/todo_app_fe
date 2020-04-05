@@ -9,7 +9,7 @@ const GoogleButton = () => {
     return (
         <GoogleLogin
             clientId="764553149648-qmv3384sh84ift5vfgcssorcjq0q4smh.apps.googleusercontent.com"
-            buttonText="Login"
+            buttonText="Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
