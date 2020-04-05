@@ -1,10 +1,12 @@
 import React from 'react';
-import './App.css';
-import GoogleLogin from "./components/ggOauth2";
+import { BrowserRouter } from "react-router-dom"
+import AppRouter from "./components/AppRouter"
 function App() {
   return (
     <div className="App">
-      <GoogleLogin />
+      <BrowserRouter >
+        <AppRouter />
+      </BrowserRouter>
     </div >
   );
 }
