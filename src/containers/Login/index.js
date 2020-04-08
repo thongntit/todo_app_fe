@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles, Typography, InputLabel, OutlinedInput, Button } from '@material-ui/core'
+import { Redirect } from "react-router-dom"
 import GoogleLogin from "../../components/ggOauth2"
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 const useStyles = makeStyles({
     container: {
         background: "#1c8ef9",
@@ -60,6 +63,15 @@ const useStyles = makeStyles({
 })
 const LoginPage = () => {
     const classes = useStyles();
+    const [isLogin, setIsLogin] = useState(false)
+    useEffect(() => {
+       const token = cookies.get("todo-app-token")
+       const expire = cookies.get("todo-app-expired-time")
+       const date = new Date()
+       if (token &&expire && parseInt(expire) > date.getTime()){
+           setIsLogin(true)
+        }
+    }, []);
     return (
         <div className={classes.container}>
             <div className={classes.loginCon}>
@@ -83,7 +95,11 @@ const LoginPage = () => {
                     <Typography>or login with</Typography>
                 </div>
                 <div className={classes.loginZone}>
-                    <GoogleLogin />
+                    <GoogleLogin setIsLogin={setIsLogin} />
+                    { ( isLogin === -1) ? 
+                        <span>Login Failed</span> :
+                        isLogin === true ? <Redirect to='/'/> : null
+                    }
                 </div>
             </div>
         </div>
