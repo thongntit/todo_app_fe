@@ -23,10 +23,10 @@ const AppRoute = ({ component, ...rest }) => {
       <Route
         {...rest}
         render={() => (
-          <div>
+          <React.Fragment>
             <AppHeader />
             <C />
-          </div>
+          </React.Fragment>
         )}
       />
     </React.Fragment>
