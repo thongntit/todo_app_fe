@@ -5,9 +5,9 @@ const cookies = new Cookies();
 
 const GoogleButton = ({ setIsLogin }) => {
   const responseGoogle = (response) => {
-    if (response && response.uc) {
-      cookies.set("todo-app-token", response.uc.id_token, { path: "/" });
-      cookies.set("todo-app-expired-time", response.uc.expires_at, {
+    if (response && response.tokenObj) {
+      cookies.set("todo-app-token", response.tokenObj.id_token, { path: "/" });
+      cookies.set("todo-app-expired-time", response.tokenObj.expires_at, {
         path: "/",
       });
       setIsLogin(true);
