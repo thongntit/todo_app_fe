@@ -82,10 +82,7 @@ const TaskDetail = () => {
         </Grid>
       </Grid>
       <Grid item xs={12} className={classes.paper}>
-        <Input
-        placeholder="Thêm ghi chú"
-        disableUnderline
-        />
+        <Input placeholder="Thêm ghi chú" disableUnderline />
       </Grid>
     </Grid>
   );

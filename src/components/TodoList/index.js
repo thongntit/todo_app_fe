@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 import TodoHeader from "./TodoHeader";
-import Todos from "./Todos"
+import Todos from "./Todos";
 const useStyles = makeStyles({
   container: {
     padding: 16,

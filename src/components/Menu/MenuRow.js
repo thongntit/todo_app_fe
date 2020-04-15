@@ -18,10 +18,10 @@ const useStyles = makeStyles({
       cursor: "pointer",
     },
   },
-  selectedLabel:{
-      marginLeft: 8,
-      color: "#2e5cdb",
-      fontWeight: 600
+  selectedLabel: {
+    marginLeft: 8,
+    color: "#2e5cdb",
+    fontWeight: 600,
   },
   menuLabel: {
     marginLeft: 8,
@@ -41,7 +41,11 @@ const MenuRow = ({ detail, selected, setSelected }) => {
       onClick={rowClick}
     >
       <Icon>{detail.icon}</Icon>
-      <Typography className={selected === detail.id ? classes.selectedLabel : classes.menuLabel}>
+      <Typography
+        className={
+          selected === detail.id ? classes.selectedLabel : classes.menuLabel
+        }
+      >
         {detail.label}
       </Typography>
     </Grid>

@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   app: {
     height: "100vh",
     display: "flex",
-    flexFlow: "column"
+    flexFlow: "column",
   },
 });
 function App() {

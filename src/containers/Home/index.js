@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 import TodoList from "../../components/TodoList";
 import Menu from "../../components/Menu";
-import TaskDetail from "../../components/TaskDetail"
+import TaskDetail from "../../components/TaskDetail";
 const useStyles = makeStyles({
   container: {
     display: "flex",
