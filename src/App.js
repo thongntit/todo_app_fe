@@ -13,13 +13,10 @@ const useStyles = makeStyles({
 });
 function App() {
   const classes = useStyles();
-  const { isLogin, setLoginStatus, logOut, validateToken } = useAuth();
   return (
     <div className={classes.app}>
       <BrowserRouter>
-        <AuthContext.Provider
-          value={{ isLogin, setLoginStatus, logOut, validateToken }}
-        >
+        <AuthContext.Provider value={useAuth()}>
           <AppRouter />
         </AuthContext.Provider>
       </BrowserRouter>
