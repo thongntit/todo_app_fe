@@ -1,27 +1,27 @@
-import React from "react";
+import React from 'react';
 import {
   Grid,
   makeStyles,
   OutlinedInput,
   Button,
   Typography,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const useStyles = makeStyles({
   container: {
     padding: 8,
   },
   todoInput: {
-    width: "100%",
+    width: '100%',
     height: 40,
-    borderRadius: "unset",
+    borderRadius: 'unset',
   },
   addTodoBtn: {
     marginLeft: 8,
-    width: "100%",
+    width: '100%',
     height: 40,
-    borderRadius: "unset",
-    backgroundColor: "#1976d2",
+    borderRadius: 'unset',
+    backgroundColor: '#1976d2',
   },
 });
 const AddTodo = () => {

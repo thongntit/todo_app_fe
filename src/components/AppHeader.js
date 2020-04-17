@@ -1,42 +1,42 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Cookies from "universal-cookie";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 const useStyles = makeStyles({
   header: {
-    background: "#1976d2",
+    background: '#1976d2',
     height: 50,
   },
   title: {
-    alignSelf: "center",
-    textAlign: "center",
+    alignSelf: 'center',
+    textAlign: 'center',
   },
   titleText: {
-    color: "white",
-    fontWeight: "600",
+    color: 'white',
+    fontWeight: '600',
   },
   pCon: {
-    alignSelf: "center",
-    textAlign: "end",
+    alignSelf: 'center',
+    textAlign: 'end',
     paddingRight: 32,
   },
   picture: {
     width: 35,
     height: 35,
-    border: "3px solid #00e8ff",
-    borderRadius: "50%",
-    "&:hover": {
-      border: "3px solid #08a6b3",
-      cursor: "pointer",
+    border: '3px solid #00e8ff',
+    borderRadius: '50%',
+    '&:hover': {
+      border: '3px solid #08a6b3',
+      cursor: 'pointer',
     },
   },
 });
@@ -52,8 +52,8 @@ const AppHeader = ({ user }) => {
     setOpen(false);
   };
   const handleLogOut = () => {
-    cookies.remove("todo-app-token");
-    cookies.remove("todo-app-expired-time");
+    cookies.remove('todo-app-token');
+    cookies.remove('todo-app-expired-time');
     setIsLogout(true);
   };
   return (
@@ -79,12 +79,12 @@ const AppHeader = ({ user }) => {
         <Menu
           id="menu-appbar"
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
+            vertical: 'top',
+            horizontal: 'right',
           }}
           transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
+            vertical: 'top',
+            horizontal: 'right',
           }}
           open={open}
           onClose={handleClose}
@@ -93,7 +93,7 @@ const AppHeader = ({ user }) => {
             {/* {user.profile.asia_id} - {user.profile.displayName} */}
           </MenuItem>
           <Divider />
-          <MenuItem>{"Phiên bản"}</MenuItem>
+          <MenuItem>{'Phiên bản'}</MenuItem>
           <Divider />
           <MenuItem onClick={handleLogOut}>Thoát</MenuItem>
         </Menu>

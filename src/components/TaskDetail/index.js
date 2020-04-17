@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Grid,
   FormControlLabel,
@@ -6,19 +6,19 @@ import {
   makeStyles,
   Typography,
   Input,
-} from "@material-ui/core";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import DateRangeIcon from "@material-ui/icons/DateRange";
-import RepeatIcon from "@material-ui/icons/Repeat";
+} from '@material-ui/core';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import RepeatIcon from '@material-ui/icons/Repeat';
 const useStyles = makeStyles({
   container: {
     padding: 8,
   },
   paper: {
-    backgroundColor: "white",
-    padding: "16px 16px",
+    backgroundColor: 'white',
+    padding: '16px 16px',
     margin: 8,
   },
   funcContainer: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     paddingBottom: 8,
   },
   funcText: {
-    borderBottom: "1px solid #ececec",
+    borderBottom: '1px solid #ececec',
   },
 });
 const TaskDetail = () => {

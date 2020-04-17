@@ -1,26 +1,26 @@
-import React from "react";
-import { Grid, Typography, makeStyles } from "@material-ui/core";
-import Icon from "@material-ui/core/Icon";
+import React from 'react';
+import { Grid, Typography, makeStyles } from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
 const useStyles = makeStyles({
   container: {
     marginLeft: 8,
     padding: 8,
-    "&:hover": {
-      backgroundColor: "white",
-      cursor: "pointer",
+    '&:hover': {
+      backgroundColor: 'white',
+      cursor: 'pointer',
     },
   },
   checkedRow: {
     marginLeft: 8,
     padding: 8,
-    backgroundColor: "#dddddd",
-    "&:hover": {
-      cursor: "pointer",
+    backgroundColor: '#dddddd',
+    '&:hover': {
+      cursor: 'pointer',
     },
   },
   selectedLabel: {
     marginLeft: 8,
-    color: "#2e5cdb",
+    color: '#2e5cdb',
     fontWeight: 600,
   },
   menuLabel: {

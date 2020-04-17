@@ -1,8 +1,8 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import AppRoute from "./AppRoute";
-import HomePage from "../containers/Home";
-import Login from "../containers/Login";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import AppRoute from './AppRoute';
+import HomePage from '../containers/Home';
+import Login from '../containers/Login';
 class AppRouter extends React.Component {
   render() {
     return (

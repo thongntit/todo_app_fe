@@ -1,34 +1,34 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Grid,
   FormControlLabel,
   Checkbox,
   makeStyles,
-} from "@material-ui/core";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import StarIcon from "@material-ui/icons/Star";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
+} from '@material-ui/core';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 const useStyles = makeStyles({
   container: {
     marginLeft: 8,
     padding: 8,
-    borderBottom: "1px solid #ececec",
-    "&:hover": {
-      backgroundColor: "#ececec",
-      cursor: "pointer",
+    borderBottom: '1px solid #ececec',
+    '&:hover': {
+      backgroundColor: '#ececec',
+      cursor: 'pointer',
     },
   },
   checkedRow: {
     marginLeft: 8,
     padding: 8,
-    backgroundColor: "#ecf4fc",
-    "&:hover": {
-      cursor: "pointer",
+    backgroundColor: '#ecf4fc',
+    '&:hover': {
+      cursor: 'pointer',
     },
   },
   taskDetail: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 });
 const TodoList = () => {
