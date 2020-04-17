@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -8,8 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+import AuthContext from '../contexts/auth';
 
 const useStyles = makeStyles({
   header: {
@@ -43,18 +42,13 @@ const useStyles = makeStyles({
 
 const AppHeader = ({ user }) => {
   const classes = useStyles();
+  const auth = useContext(AuthContext);
   const [open, setOpen] = useState(false);
-  const [isLogout, setIsLogout] = useState(false);
   const handleMenu = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
-  };
-  const handleLogOut = () => {
-    cookies.remove('todo-app-token');
-    cookies.remove('todo-app-expired-time');
-    setIsLogout(true);
   };
   return (
     <Grid container className={classes.header}>
@@ -95,10 +89,10 @@ const AppHeader = ({ user }) => {
           <Divider />
           <MenuItem>{'Phiên bản'}</MenuItem>
           <Divider />
-          <MenuItem onClick={handleLogOut}>Thoát</MenuItem>
+          <MenuItem onClick={auth.logOut}>Thoát</MenuItem>
         </Menu>
       </Grid>
-      {isLogout ? <Redirect to="/sign-in" /> : null}
+      {!auth.isLogin ? <Redirect to="/sign-in" /> : null}
     </Grid>
   );
 };

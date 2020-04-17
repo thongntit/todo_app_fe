@@ -1,7 +1,9 @@
 import React from 'react';
 
 const AuthContext = React.createContext({
-  isGapiReady: false,
+  isLogin: false,
+  setLogin: () => {},
+  logOut: () => {},
 });
 
 export default AuthContext;
