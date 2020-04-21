@@ -6,7 +6,6 @@ import AuthContext from '../contexts/auth';
 const AppRoute = ({ component, ...rest }) => {
   const C = component;
   const auth = useContext(AuthContext);
-  console.log(auth, 'authhhhhhhhhhhhhhhh');
   return (
     <React.Fragment>
       {auth.isLogin === false ? <Redirect to="/sign-in" /> : null}
