@@ -5,21 +5,26 @@ import jwtDecode from 'jwt-decode';
 const cookies = new Cookies();
 export const useAuth = () => {
   const [isLogin, setLoginStatus] = useState(false);
-  useEffect(async () => {
-    const token = cookies.get('todo-app-token');
-    if (token) {
-      const userInfo = jwtDecode(token);
-      const date = new Date();
-      //userInfo.exp is unix time
-      if (userInfo && userInfo.exp > date.getTime() / 1000) {
-        const resp = await loginBackend(token);
-        if (resp.email === userInfo.email) {
-          setLoginStatus(true);
-          return;
+  const [userInfo, setUserInfo] = useState({});
+  useEffect(() => {
+    async function verifyToken() {
+      const token = cookies.get('todo-app-token');
+      if (token) {
+        const userInfo = jwtDecode(token);
+        const date = new Date();
+        //userInfo.exp is unix time
+        if (userInfo && userInfo.exp > date.getTime() / 1000) {
+          const resp = await loginBackend(token);
+          if (resp.email === userInfo.email) {
+            setUserInfo({ token, ...resp });
+            setLoginStatus(true);
+            return;
+          }
         }
       }
+      setLoginStatus(false);
     }
-    setLoginStatus(false);
+    verifyToken();
   }, []);
   const loginBackend = async (jwtToken) => {
     if (jwtToken) {
@@ -62,5 +67,6 @@ export const useAuth = () => {
     validateToken,
     setLoginStatus,
     logOut,
+    userInfo,
   };
 };

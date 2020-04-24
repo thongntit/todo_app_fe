@@ -2,8 +2,10 @@ import React from 'react';
 
 const AuthContext = React.createContext({
   isLogin: false,
-  setLogin: () => {},
+  validateToken: () => {},
+  setLoginStatus: () => {},
   logOut: () => {},
+  userInfo: {},
 });
 
 export default AuthContext;

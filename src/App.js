@@ -4,6 +4,8 @@ import AppRouter from './components/AppRouter';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthContext from './contexts/auth';
 import { useAuth } from './hooks/auth';
+import TodosContext from './contexts/todos';
+import { useTodos } from './hooks/todos';
 const useStyles = makeStyles({
   app: {
     height: '100vh',
@@ -17,7 +19,9 @@ function App() {
     <div className={classes.app}>
       <BrowserRouter>
         <AuthContext.Provider value={useAuth()}>
-          <AppRouter />
+          <TodosContext.Provider value={useTodos()}>
+            <AppRouter />
+          </TodosContext.Provider>
         </AuthContext.Provider>
       </BrowserRouter>
     </div>

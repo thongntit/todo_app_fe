@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import TodoList from '../../components/TodoList';
 import Menu from '../../components/Menu';
 import TaskDetail from '../../components/TaskDetail';
+import AuthContext from '../../contexts/auth';
+import TodosContext from '../../contexts/todos';
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -15,6 +17,13 @@ const useStyles = makeStyles({
 });
 const Home = () => {
   const classes = useStyles();
+  const auth = useContext(AuthContext);
+  const todos = useContext(TodosContext);
+  useEffect(() => {
+    if (auth.isLogin) {
+      todos.getTodos(auth.userInfo);
+    }
+  }, [auth.isLogin]);
   return (
     <Grid container className={classes.container}>
       <Grid item xs={2} className={classes.bodyContainer}>

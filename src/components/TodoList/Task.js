@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     alignSelf: 'center',
   },
 });
-const TodoList = () => {
+const TodoList = ({ detail }) => {
   const classes = useStyles();
   const [state, setState] = useState({
     starred: false,
@@ -67,7 +67,7 @@ const TodoList = () => {
         />
       </Grid>
       <Grid item xs={10} className={classes.taskDetail}>
-        Task
+        {detail.title}
       </Grid>
       <Grid item xs={1}>
         <FormControlLabel
