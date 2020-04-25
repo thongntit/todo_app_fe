@@ -6,7 +6,6 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-import AuthContext from '../../contexts/auth';
 import TodosContext from '../../contexts/todos';
 const useStyles = makeStyles({
   container: {
@@ -28,11 +27,10 @@ const useStyles = makeStyles({
 const AddTodo = () => {
   const classes = useStyles();
   const todos = useContext(TodosContext);
-  const auth = useContext(AuthContext);
   const handleSubmit = async () => {
     const ele = document.getElementsByName('new-todo');
     if (ele) {
-      const success = await todos.addTodo(auth.userInfo, {
+      const success = await todos.addTodo({
         title: ele[0].value,
       });
       if (success){

@@ -16,7 +16,7 @@ export const useAuth = () => {
         if (userInfo && userInfo.exp > date.getTime() / 1000) {
           const resp = await loginBackend(token);
           if (resp.email === userInfo.email) {
-            setUserInfo({ token, ...resp });
+            setUserInfo({ token, ggInfo: userInfo, ...resp });
             setLoginStatus(true);
             return;
           }

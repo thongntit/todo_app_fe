@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -8,7 +7,6 @@ import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import AuthContext from '../contexts/auth';
 
 const useStyles = makeStyles({
   header: {
@@ -40,10 +38,10 @@ const useStyles = makeStyles({
   },
 });
 
-const AppHeader = ({ user }) => {
+const AppHeader = ({ user, logOut }) => {
   const classes = useStyles();
-  const auth = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+
   const handleMenu = () => {
     setOpen(true);
   };
@@ -60,11 +58,11 @@ const AppHeader = ({ user }) => {
       <Grid item xs={8}></Grid>
       <Grid item xs={2} className={classes.pCon}>
         <IconButton onClick={handleMenu}>
-          {user && user.profile.photoURL ? (
+          {user && user.ggInfo && user.ggInfo.picture ? (
             <img
               alt="Profile"
               style={{ height: 30, width: 30, borderRadius: 15 }}
-              src={user.profile.photoURL}
+              src={user.ggInfo.picture}
             />
           ) : (
             <AccountCircleIcon />
@@ -72,27 +70,27 @@ const AppHeader = ({ user }) => {
         </IconButton>
         <Menu
           id="menu-appbar"
+          getContentAnchorEl={null}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'right',
           }}
           transformOrigin={{
             vertical: 'top',
-            horizontal: 'right',
+            horizontal: 'center',
           }}
           open={open}
           onClose={handleClose}
         >
           <MenuItem>
-            {/* {user.profile.asia_id} - {user.profile.displayName} */}
+            { user && user.ggInfo ? user.ggInfo.name: ""}
           </MenuItem>
           <Divider />
-          <MenuItem>{'Phiên bản'}</MenuItem>
+          <MenuItem>{'Phiên bản 0.1.0'}</MenuItem>
           <Divider />
-          <MenuItem onClick={auth.logOut}>Thoát</MenuItem>
+          <MenuItem onClick={logOut}>Thoát</MenuItem>
         </Menu>
       </Grid>
-      {!auth.isLogin ? <Redirect to="/sign-in" /> : null}
     </Grid>
   );
 };

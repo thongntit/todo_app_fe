@@ -15,11 +15,12 @@ const useStyles = makeStyles({
 });
 function App() {
   const classes = useStyles();
+  const { userInfo, ...authContext } = useAuth();
   return (
     <div className={classes.app}>
       <BrowserRouter>
-        <AuthContext.Provider value={useAuth()}>
-          <TodosContext.Provider value={useTodos()}>
+        <AuthContext.Provider value={{ userInfo, ...authContext }}>
+          <TodosContext.Provider value={useTodos(userInfo)}>
             <AppRouter />
           </TodosContext.Provider>
         </AuthContext.Provider>
