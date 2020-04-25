@@ -20,7 +20,7 @@ const TodoList = () => {
             new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
         )
         .map((todo) => (
-          <Task detail={todo} />
+          <Task key={todo.id} detail={todo} updateTodo={todos.updateTodo} />
         ))}
     </React.Fragment>
   );

@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
-import {
-  Grid,
-  FormControlLabel,
-  Checkbox,
-  makeStyles,
-  Typography,
-  Input,
-} from '@material-ui/core';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import React, { useContext } from 'react';
+import { Grid, makeStyles, Input } from '@material-ui/core';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import RepeatIcon from '@material-ui/icons/Repeat';
+import DescriptionIcon from '@material-ui/icons/Description';
+import TodosContext from '../../contexts/todos';
+import DetailTitle from './DetailTitle';
 const useStyles = makeStyles({
   container: {
     padding: 8,
@@ -32,30 +26,24 @@ const useStyles = makeStyles({
 });
 const TaskDetail = () => {
   const classes = useStyles();
-  const [checkedB, setChecked] = useState(false);
-  const handleChange = () => {
-    setChecked(!checkedB);
-  };
+  const todos = useContext(TodosContext);
+  const selectedTodo = todos.todos.find((todo) => todo.id === todos.selectedId);
   return (
     <Grid container className={classes.container}>
       <Grid item xs={12} className={classes.paper}>
-        <FormControlLabel
-          control={
-            <React.Fragment>
-              <Checkbox
-                icon={<RadioButtonUncheckedIcon />}
-                checkedIcon={<CheckCircleOutlineIcon />}
-                checked={checkedB}
-                onChange={handleChange}
-                name="checkedB"
-                color="primary"
-              />
-              <Typography>TaskLabel</Typography>
-            </React.Fragment>
-          }
-        />
+        <DetailTitle todo={selectedTodo} updateTodo={todos.updateTodo} />
       </Grid>
       <Grid item xs={12} className={classes.paper}>
+        <Grid container className={classes.funcContainer}>
+          <Grid item xs={1}>
+            <DescriptionIcon />
+          </Grid>
+          <Grid item xs={10} className={classes.funcText}>
+            {selectedTodo && selectedTodo.description
+              ? selectedTodo.description
+              : 'Thêm mô tả'}
+          </Grid>
+        </Grid>
         <Grid container className={classes.funcContainer}>
           <Grid item xs={1}>
             <NotificationsNoneIcon />

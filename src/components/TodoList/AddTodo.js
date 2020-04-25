@@ -48,7 +48,7 @@ const AddTodo = () => {
       <Grid item xs={12}>
         <Typography variant="h6">To-Do list</Typography>
       </Grid>
-      <Grid item xs={10}>
+      <Grid item xs={5}>
         <OutlinedInput
           className={classes.todoInput}
           placeholder="Add a task.."

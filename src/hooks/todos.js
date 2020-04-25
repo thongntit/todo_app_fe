@@ -3,6 +3,7 @@ import { BE_HOST, BE_PROTOCAL } from '../constants';
 
 export const useTodos = (userInfo) => {
   const [todos, setTodos] = useState([]);
+  const [selectedId, setSelectedId] = useState('');
   const getTodos = async () => {
     if (userInfo) {
       const resp = await fetch(
@@ -44,9 +45,32 @@ export const useTodos = (userInfo) => {
     }
     return false;
   };
+  const updateTodo = async (payload) => {
+    if (userInfo && payload) {
+      const resp = await fetch(
+        BE_PROTOCAL + '://' + BE_HOST + '/tasks/update',
+        {
+          method: 'post',
+          headers: {
+            Authorization: 'Bearer ' + userInfo.token,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        }
+      )
+        .then((res) => res.json())
+        .catch(() => false);
+      setTodos([...todos.filter((todo) => todo.id !== payload.id), resp]);
+      return resp;
+    }
+    return false;
+  };
   return {
     todos,
     getTodos,
     addTodo,
+    updateTodo,
+    selectedId,
+    setSelectedId,
   };
 };

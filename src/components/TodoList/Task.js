@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import {
   Grid,
   FormControlLabel,
   Checkbox,
   makeStyles,
+  IconButton,
 } from '@material-ui/core';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+import DeleteIcon from '@material-ui/icons/Delete';
+import TodosContext from '../../contexts/todos';
 const useStyles = makeStyles({
   container: {
     marginLeft: 8,
@@ -31,57 +32,44 @@ const useStyles = makeStyles({
     alignSelf: 'center',
   },
 });
-const TodoList = ({ detail }) => {
+const TodoList = ({ detail, updateTodo }) => {
   const classes = useStyles();
-  const [state, setState] = useState({
-    starred: false,
-    checkedB: false,
-  });
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  const todos = useContext(TodosContext);
   const rowClick = () => {
-    setState({
-      ...state,
-      checkedB: !state.checkedB,
+    todos.setSelectedId(detail.id);
+  };
+  const handleChange = (event) => {
+    updateTodo({
+      ...detail,
+      status: event.target.checked ? 'Completed' : 'Incomplete',
     });
   };
   return (
     <Grid
       container
-      className={state.checkedB ? classes.checkedRow : classes.container}
-      onClick={rowClick}
+      className={
+        detail.id === todos.selectedId ? classes.checkedRow : classes.container
+      }
     >
-      <Grid item xs={1}>
+      <Grid item xs={11} onClick={rowClick}>
         <FormControlLabel
           control={
             <Checkbox
               icon={<RadioButtonUncheckedIcon />}
               checkedIcon={<CheckCircleOutlineIcon />}
-              checked={state.checkedB}
+              checked={detail && detail.status === 'Completed' ? true : false}
               onChange={handleChange}
               name="checkedB"
               color="primary"
             />
           }
         />
-      </Grid>
-      <Grid item xs={10} className={classes.taskDetail}>
         {detail.title}
       </Grid>
       <Grid item xs={1}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              icon={<StarBorderIcon />}
-              checkedIcon={<StarIcon />}
-              checked={state.starred}
-              onChange={handleChange}
-              name="starred"
-              color="primary"
-            />
-          }
-        />
+        <IconButton>
+          <DeleteIcon />
+        </IconButton>
       </Grid>
     </Grid>
   );
