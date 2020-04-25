@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Grid,
   makeStyles,
@@ -6,7 +6,8 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-
+import AuthContext from '../../contexts/auth';
+import TodosContext from '../../contexts/todos';
 const useStyles = makeStyles({
   container: {
     padding: 8,
@@ -26,6 +27,24 @@ const useStyles = makeStyles({
 });
 const AddTodo = () => {
   const classes = useStyles();
+  const todos = useContext(TodosContext);
+  const auth = useContext(AuthContext);
+  const handleSubmit = async () => {
+    const ele = document.getElementsByName('new-todo');
+    if (ele) {
+      const success = await todos.addTodo(auth.userInfo, {
+        title: ele[0].value,
+      });
+      if (success){
+        ele[0].value = ""
+      }
+    }
+  };
+  const catchPressEnter = (event) => {
+    if (event.keyCode === 13) {
+      handleSubmit();
+    }
+  };
   return (
     <Grid container className={classes.container}>
       <Grid item xs={12}>
@@ -35,6 +54,8 @@ const AddTodo = () => {
         <OutlinedInput
           className={classes.todoInput}
           placeholder="Add a task.."
+          onKeyDown={catchPressEnter}
+          name="new-todo"
         />
       </Grid>
       <Grid item xs={1}>
@@ -42,6 +63,7 @@ const AddTodo = () => {
           variant="contained"
           color="primary"
           className={classes.addTodoBtn}
+          onClick={handleSubmit}
         >
           Add
         </Button>
