@@ -27,10 +27,10 @@ const DetailExtra = ({ todo, updateTodo }) => {
   };
   const handleDateChange = (value) => {
     updateTodo({
-        ...todo,
-        dueTime: value,
-      });
-  }
+      ...todo,
+      dueTime: value,
+    });
+  };
   useEffect(() => {
     document.getElementById('input-description').value =
       todo && todo.description ? todo.description : 'Thêm ghi chú';
@@ -55,7 +55,7 @@ const DetailExtra = ({ todo, updateTodo }) => {
         </Grid>
         <Grid item xs={10} className={classes.funcText}>
           <DateTimePicker
-            value={new Date(todo ? todo.dueTime: null)}
+            value={new Date(todo ? todo.dueTime : null)}
             onChange={handleDateChange}
             InputProps={{
               disableUnderline: true,

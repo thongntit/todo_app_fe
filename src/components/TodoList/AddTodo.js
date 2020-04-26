@@ -33,8 +33,8 @@ const AddTodo = () => {
       const success = await todos.addTodo({
         title: ele[0].value,
       });
-      if (success){
-        ele[0].value = ""
+      if (success) {
+        ele[0].value = '';
       }
     }
   };

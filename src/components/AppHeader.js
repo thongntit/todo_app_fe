@@ -82,9 +82,7 @@ const AppHeader = ({ user, logOut }) => {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem>
-            { user && user.ggInfo ? user.ggInfo.name: ""}
-          </MenuItem>
+          <MenuItem>{user && user.ggInfo ? user.ggInfo.name : ''}</MenuItem>
           <Divider />
           <MenuItem>{'Phiên bản 0.1.0'}</MenuItem>
           <Divider />
