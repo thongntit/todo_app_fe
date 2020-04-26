@@ -67,21 +67,23 @@ export const useTodos = (userInfo) => {
   };
   const deleteTodo = async (payload) => {
     if (userInfo && payload) {
-      // const resp = await fetch(
-      //   BE_PROTOCAL + '://' + BE_HOST + '/tasks/delete',
-      //   {
-      //     method: 'post',
-      //     headers: {
-      //       Authorization: 'Bearer ' + userInfo.token,
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify(payload),
-      //   }
-      // )
-      //   .then((res) => res.json())
-      //   .catch(() => false);
-      setTodos([...todos.filter((todo) => todo.id !== payload.id)]);
-      // return resp;
+      const resp = await fetch(
+        BE_PROTOCAL + '://' + BE_HOST + '/tasks/delete',
+        {
+          method: 'post',
+          headers: {
+            Authorization: 'Bearer ' + userInfo.token,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        }
+      )
+        .then((res) => res.json())
+        .catch(() => false);
+      if (resp) {
+        setTodos([...todos.filter((todo) => todo.id !== payload.id)]);
+      }
+      return resp;
     }
     return false;
   };
