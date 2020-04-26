@@ -5,7 +5,7 @@ export const useTodos = (userInfo) => {
   const [todos, setTodos] = useState([]);
   const [selectedId, setSelectedId] = useState('');
   const getTodos = async () => {
-    if (userInfo) {
+    if (userInfo && Object.keys(userInfo).length > 0) {
       const resp = await fetch(
         BE_PROTOCAL + '://' + BE_HOST + '/tasks/getAllTasks',
         {
