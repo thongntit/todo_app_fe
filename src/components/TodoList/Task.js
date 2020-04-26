@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     alignSelf: 'center',
   },
 });
-const TodoList = ({ detail, updateTodo }) => {
+const TodoList = ({ detail, updateTodo, deleteTodo }) => {
   const classes = useStyles();
   const todos = useContext(TodosContext);
   const rowClick = () => {
@@ -42,6 +42,11 @@ const TodoList = ({ detail, updateTodo }) => {
     updateTodo({
       ...detail,
       status: event.target.checked ? 'Completed' : 'Incomplete',
+    });
+  };
+  const handleDelete = () => {
+    deleteTodo({
+      ...detail,
     });
   };
   return (
@@ -67,7 +72,7 @@ const TodoList = ({ detail, updateTodo }) => {
         {detail.title}
       </Grid>
       <Grid item xs={1}>
-        <IconButton>
+        <IconButton onClick={handleDelete}>
           <DeleteIcon />
         </IconButton>
       </Grid>
