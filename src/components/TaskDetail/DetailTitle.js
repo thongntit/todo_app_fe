@@ -41,13 +41,7 @@ const DetailTitle = ({ todo, updateTodo }) => {
         />
       </Grid>
       <Grid item className={classes.textAlign}>
-        <Input
-          id="title-input"
-          //   value={title}
-          onChange={handleChange}
-          onKeyDown={handlePressEnter}
-          disableUnderline
-        />
+        <Input id="title-input" onKeyDown={handlePressEnter} disableUnderline />
       </Grid>
     </Grid>
   );

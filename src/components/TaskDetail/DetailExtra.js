@@ -55,7 +55,7 @@ const DetailExtra = ({ todo, updateTodo }) => {
         </Grid>
         <Grid item xs={10} className={classes.funcText}>
           <DateTimePicker
-            value={new Date(todo ? todo.dueTime : null)}
+            value={new Date(todo && todo.dueTime ? todo.dueTime : null)}
             onChange={handleDateChange}
             InputProps={{
               disableUnderline: true,
