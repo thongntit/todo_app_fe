@@ -6,50 +6,56 @@ const cookies = new Cookies();
 export const useAuth = () => {
   const [isLogin, setLoginStatus] = useState(false);
   const [userInfo, setUserInfo] = useState({});
-  useEffect(() => {
-    async function verifyToken() {
-      const token = cookies.get('todo-app-token');
-      if (token) {
-        const userInfo = jwtDecode(token);
-        const date = new Date();
-        //userInfo.exp is unix time
-        if (userInfo && userInfo.exp > date.getTime() / 1000) {
-          const resp = await loginBackend(token);
-          if (resp.email === userInfo.email) {
-            setUserInfo({ token, ggInfo: userInfo, ...resp });
-            setLoginStatus(true);
-            return;
-          }
+  async function verifyToken() {
+    const token = cookies.get('todo-app-token');
+    if (token) {
+      const userInfo = jwtDecode(token);
+      const date = new Date();
+      //userInfo.exp is unix time
+      if (userInfo && userInfo.exp > date.getTime() / 1000) {
+        const resp = await loginBackend(token);
+        if (resp && resp.email === userInfo.email) {
+          setUserInfo({ token, ggInfo: userInfo, ...resp });
+          setLoginStatus(true);
+          return;
+        } else {
+          setLoginStatus(-1);
+          return;
         }
       }
-      setLoginStatus(false);
     }
+    setLoginStatus(false);
+  }
+  useEffect(() => {
     verifyToken();
+    // eslint-disable-next-line
   }, []);
   const loginBackend = async (jwtToken) => {
     if (jwtToken) {
-      const data = {
-        tokenId: jwtToken,
-      };
-      let resp = await fetch(BE_PROTOCAL + '://' + BE_HOST + '/auth/login', {
+      return fetch(BE_PROTOCAL + '://' + BE_HOST + '/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
-      });
-      return await resp.json();
+        body: JSON.stringify({
+          tokenId: jwtToken,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => data)
+        .catch((error) => error);
     }
   };
   const validateToken = async (response) => {
     if (response && response.tokenObj) {
       const resp = await loginBackend(response.tokenObj.id_token);
       const userInfo = jwtDecode(response.tokenObj.id_token);
-      if (resp.email === userInfo.email) {
+      if (resp && resp.email === userInfo.email) {
         setToken(response.tokenObj);
-        setLoginStatus(true);
+        verifyToken();
+        // setLoginStatus(true);
       } else {
-        setLoginStatus(false);
+        setLoginStatus(-1);
       }
     } else {
       setLoginStatus(false);

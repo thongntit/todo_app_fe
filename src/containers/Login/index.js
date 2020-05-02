@@ -65,6 +65,10 @@ const useStyles = makeStyles({
   loginZone: {
     textAlign: 'center',
   },
+  loginFail: {
+    marginTop: 8,
+    color: 'red',
+  },
 });
 const LoginPage = () => {
   const classes = useStyles();
@@ -95,11 +99,13 @@ const LoginPage = () => {
         </div>
         <div className={classes.loginZone}>
           <GoogleLogin />
-          {auth.isLogin === -1 ? (
-            <span>Login Failed</span>
-          ) : auth.isLogin === true ? (
-            <Redirect to="/" />
-          ) : null}
+          <div className={classes.loginFail}>
+            {auth.isLogin === -1 ? (
+              <span>Login Failed</span>
+            ) : auth.isLogin === true ? (
+              <Redirect to="/" />
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
