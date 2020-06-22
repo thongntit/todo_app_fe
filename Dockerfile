@@ -5,14 +5,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci --silent
-RUN npm install react-scripts@3.4.1 -g --silent
 COPY . ./
-ARG TODO_OAUTH_KEY
-ENV REACT_APP_GG_CLIENT_ID ${TODO_OAUTH_KEY}
-ARG TODO_PROTOCAL
-ENV REACT_APP_BE_PROTOCAL ${TODO_PROTOCAL}
-ARG TODO_BE_HOST
-ENV REACT_APP_BE_HOST ${TODO_BE_HOST}
 RUN npm run build
 
 # production environment
