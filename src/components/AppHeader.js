@@ -10,7 +10,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles({
   header: {
-    background: '#1976d2',
+    background: '#FFD447',
     height: 50,
   },
   title: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
   titleText: {
-    color: 'white',
+    color: '#4C1C00',
     fontWeight: '600',
   },
   pCon: {
@@ -52,7 +52,7 @@ const AppHeader = ({ user, logOut }) => {
     <Grid container className={classes.header}>
       <Grid className={classes.title} item xs={2}>
         <Typography className={classes.titleText} variant="h6">
-          Todoist
+          Việc phải làm
         </Typography>
       </Grid>
       <Grid item xs={8}></Grid>

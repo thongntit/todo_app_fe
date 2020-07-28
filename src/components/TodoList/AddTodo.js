@@ -21,7 +21,10 @@ const useStyles = makeStyles({
     width: '100%',
     height: 40,
     borderRadius: 'unset',
-    backgroundColor: '#1976d2',
+    backgroundColor: '#FFD447',
+    '&:hover': {
+      backgroundColor: '#f9c310',
+    },
   },
 });
 const AddTodo = () => {
@@ -46,12 +49,12 @@ const AddTodo = () => {
   return (
     <Grid container className={classes.container}>
       <Grid item xs={12}>
-        <Typography variant="h6">To-Do list</Typography>
+        <Typography variant="h6">Danh sách việc phải làm</Typography>
       </Grid>
       <Grid item xs={5}>
         <OutlinedInput
           className={classes.todoInput}
-          placeholder="Add a task.."
+          placeholder="Thêm việc mới ..."
           onKeyDown={catchPressEnter}
           name="new-todo"
         />
@@ -63,7 +66,7 @@ const AddTodo = () => {
           className={classes.addTodoBtn}
           onClick={handleSubmit}
         >
-          Add
+          Thêm
         </Button>
       </Grid>
     </Grid>

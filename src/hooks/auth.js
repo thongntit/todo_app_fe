@@ -4,7 +4,7 @@ import { BE_HOST, BE_PROTOCAL } from '../constants';
 import jwtDecode from 'jwt-decode';
 const cookies = new Cookies();
 export const useAuth = () => {
-  const [isLogin, setLoginStatus] = useState(false);
+  const [isLogin, setLoginStatus] = useState(undefined);
   const [userInfo, setUserInfo] = useState({});
   async function verifyToken() {
     const token = cookies.get('todo-app-token');
