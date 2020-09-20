@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import AppHeader from './AppHeader';
+// import AppHeader from './AppHeader';
+import AppHeader from "./AppBar"
 import { Route, withRouter, Redirect } from 'react-router-dom';
 import AuthContext from '../contexts/auth';
-
 const AppRoute = ({ component, ...rest }) => {
   const C = component;
   const auth = useContext(AuthContext);
@@ -13,7 +13,8 @@ const AppRoute = ({ component, ...rest }) => {
         {...rest}
         render={() => (
           <React.Fragment>
-            <AppHeader user={auth.userInfo} logOut={auth.logOut} />
+            {/* <AppHeader user={auth.userInfo} logOut={auth.logOut} /> */}
+            <AppHeader />
             <C />
           </React.Fragment>
         )}
