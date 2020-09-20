@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles, Drawer } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuRow from './MenuRow';
@@ -20,14 +20,17 @@ const Menu = () => {
         </IconButton>
       </Grid>
       <Grid item xs={12}>
-        {LIST_MENU.map((menu) => (
-          <MenuRow
-            key={menu.id}
-            detail={menu}
-            selected={selectedRow}
-            setSelected={setSelectedRow}
-          />
-        ))}
+        <Drawer anchor="left" >
+          {LIST_MENU.map((menu) => (
+            <MenuRow
+              key={menu.id}
+              detail={menu}
+              selected={selectedRow}
+              setSelected={setSelectedRow}
+            />
+          ))}
+        </Drawer>
+
       </Grid>
     </Grid>
   );
