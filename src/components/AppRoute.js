@@ -14,7 +14,7 @@ const AppRoute = ({ component, ...rest }) => {
         render={() => (
           <React.Fragment>
             {/* <AppHeader user={auth.userInfo} logOut={auth.logOut} /> */}
-            <AppHeader />
+            <AppHeader user={auth.userInfo} logOut={auth.logOut} />
             <C />
           </React.Fragment>
         )}
