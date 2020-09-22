@@ -1,10 +1,9 @@
 import {
   AppBar,
   Avatar,
-  Button,
   Divider,
-  Menu,
   MenuItem,
+  Popover,
   Toolbar,
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -32,7 +31,10 @@ type AppHeaderProps = {
 const AppHeader: React.FC<AppHeaderProps> = ({ user, logOut }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const handleMenu = () => {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const handleClick = () => {
+    const element = document.getElementById('avatar-picture');
+    setAnchorEl(element);
     setOpen(true);
   };
   const handleClose = () => {
@@ -48,29 +50,32 @@ const AppHeader: React.FC<AppHeaderProps> = ({ user, logOut }) => {
           <Typography variant="h6" className={classes.title}>
             Việc phải làm
           </Typography>
-          <Button color="inherit" onClick={handleMenu}>
-            <Avatar alt="Profile" src={user?.ggInfo?.picture} />
-          </Button>
-          <Menu
-            id="menu-appbar"
-            getContentAnchorEl={null}
+          <IconButton color="inherit" onClick={handleClick}>
+            <Avatar
+              id="avatar-picture"
+              alt="Profile"
+              src={user?.ggInfo?.picture}
+            />
+          </IconButton>
+          <Popover
+            anchorEl={anchorEl}
             anchorOrigin={{
-              vertical: 'top',
+              vertical: 'bottom',
               horizontal: 'right',
             }}
             transformOrigin={{
               vertical: 'top',
-              horizontal: 'center',
+              horizontal: 'right',
             }}
             open={open}
             onClose={handleClose}
           >
-            <MenuItem>{user && user.ggInfo ? user.ggInfo.name : ''}</MenuItem>
+            <MenuItem>{user?.ggInfo?.name}</MenuItem>
             <Divider />
             <MenuItem>{'Phiên bản 0.1.0'}</MenuItem>
             <Divider />
             <MenuItem onClick={logOut}>Thoát</MenuItem>
-          </Menu>
+          </Popover>
         </Toolbar>
       </AppBar>
     </div>
