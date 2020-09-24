@@ -1,5 +1,4 @@
 import DateFnsUtils from '@date-io/date-fns';
-import { yellow } from '@material-ui/core/colors';
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/styles';
