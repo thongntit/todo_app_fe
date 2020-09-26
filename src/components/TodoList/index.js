@@ -4,6 +4,7 @@ import TodoHeader from './TodoHeader';
 import Todos from './Todos';
 const useStyles = makeStyles({
   container: {
+    width: "100%",
     padding: 16,
   },
 });

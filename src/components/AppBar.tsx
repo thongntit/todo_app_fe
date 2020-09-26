@@ -17,9 +17,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
   },
@@ -55,42 +52,40 @@ const AppHeader: React.FC<{ openSideBar: Dispatch<any> }> = ({
     setOpen(false);
   };
   return (
-    <div>
-      <AppBar position="relative" className={classes.appBar}>
-        <Toolbar>
-          <IconButton onClick={openSideBar}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Việc phải làm
-          </Typography>
-          <IconButton color="inherit" onClick={onClickUserMenu}>
-            <Avatar
-              id="avatar-picture"
-              alt="Profile"
-              src={userInfo?.ggInfo?.picture}
-            />
-          </IconButton>
-          <Popover
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={open}
-            onClose={handleClose}
-          >
-            <MenuItem>{userInfo?.ggInfo?.name}</MenuItem>
-            <Divider />
-            <MenuItem onClick={logOut}>Thoát</MenuItem>
-          </Popover>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="fixed" className={classes.appBar}>
+      <Toolbar>
+        <IconButton onClick={openSideBar}>
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" className={classes.title}>
+          Việc phải làm
+        </Typography>
+        <IconButton color="inherit" onClick={onClickUserMenu}>
+          <Avatar
+            id="avatar-picture"
+            alt="Profile"
+            src={userInfo?.ggInfo?.picture}
+          />
+        </IconButton>
+        <Popover
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem>{userInfo?.ggInfo?.name}</MenuItem>
+          <Divider />
+          <MenuItem onClick={logOut}>Thoát</MenuItem>
+        </Popover>
+      </Toolbar>
+    </AppBar>
   );
 };
 export default AppHeader;

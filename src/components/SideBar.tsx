@@ -1,41 +1,32 @@
 import {
   Divider,
+  Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Slide,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import MailIcon from '@material-ui/icons/Mail';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import React, { useState } from 'react';
-
-const drawerWidth = 240;
+import { DRAWER_WIDTH } from 'constants/ui';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
     flexShrink: 0,
-    whiteSpace: 'nowrap',
   },
-  drawerOpen: {
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+  drawerPaper: {
+    width: DRAWER_WIDTH,
   },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
-    },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
   },
 }));
 
@@ -45,7 +36,17 @@ type AppHeaderProps = {
 const AppHeader: React.FC<AppHeaderProps> = ({ open }) => {
   const classes = useStyles();
   return (
-    <Slide direction="right" in={open} mountOnEnter unmountOnExit>
+    <Drawer
+      className={classes.drawer}
+      variant="persistent"
+      anchor="left"
+      open={open}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+    >
+      <div className={classes.drawerHeader} />
+      <Divider />
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
@@ -56,7 +57,18 @@ const AppHeader: React.FC<AppHeaderProps> = ({ open }) => {
           </ListItem>
         ))}
       </List>
-    </Slide>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </Drawer>
   );
 };
 export default AppHeader;
