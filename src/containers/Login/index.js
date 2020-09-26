@@ -1,15 +1,13 @@
-import React, { useContext } from 'react';
 import {
-  makeStyles,
-  Typography,
-  InputLabel,
-  OutlinedInput,
-  Button,
+  Button, InputLabel, makeStyles, OutlinedInput, Typography
 } from '@material-ui/core';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import GoogleLogin from '../../components/ggOauth2';
+import LoginWithGoogleBtn from '../../components/LoginWithGoogleBtn';
 import AuthContext from '../../contexts/auth';
-const useStyles = makeStyles({
+import { InputContainer } from "components/Common"
+import DividerWithText from "components/DividerWithText"
+const useStyles = makeStyles((theme) => ({
   container: {
     background: '#1c8ef9',
     width: '100vw',
@@ -20,10 +18,13 @@ const useStyles = makeStyles({
     justifyContent: 'space-evenly',
   },
   loginCon: {
+    display: "flex",
+    flexDirection: "column",
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
     background: 'white',
     width: 400,
-    height: 500,
-    borderRadius: 12,
+    borderRadius: 8,
   },
   title: {
     height: '15%',
@@ -47,14 +48,6 @@ const useStyles = makeStyles({
   buttonCon: {
     margin: '8px 24px',
   },
-  button: {
-    background: '#1c8ef9',
-    color: 'white',
-    height: 38,
-    width: '100%',
-    marginTop: 8,
-    marginBottom: 8,
-  },
   divider: {
     display: 'flex',
     flexDirection: 'column',
@@ -69,7 +62,7 @@ const useStyles = makeStyles({
     marginTop: 8,
     color: 'red',
   },
-});
+}));
 const LoginPage = () => {
   const classes = useStyles();
   const auth = useContext(AuthContext);
@@ -79,26 +72,26 @@ const LoginPage = () => {
         <div className={classes.title}>
           <Typography variant="h4">Sign In</Typography>
         </div>
-        <div className={classes.inputCon}>
-          <div className={classes.inputFieldCon}>
-            <InputLabel>Email</InputLabel>
-            <OutlinedInput id="email" className={classes.input} />
-          </div>
-          <div className={classes.inputFieldCon}>
-            <InputLabel>Password</InputLabel>
-            <OutlinedInput id="password" className={classes.input} />
-          </div>
-          <div className={classes.buttonCon}>
-            <Button variant="contained" className={classes.button}>
-              Sign In
+        <InputContainer>
+          <InputLabel>Email</InputLabel>
+          <OutlinedInput id="email" className={classes.input} />
+        </InputContainer>
+        <InputContainer>
+          <InputLabel>Password</InputLabel>
+          <OutlinedInput id="password" className={classes.input} />
+        </InputContainer>
+        <InputContainer>
+          <Button fullWidth variant="contained" color="primary" className={classes.button}>
+            Sign In
             </Button>
-          </div>
-        </div>
-        <div className={classes.divider}>
-          <Typography>or login with</Typography>
-        </div>
+        </InputContainer>
+        <InputContainer>
+          <DividerWithText>Or</DividerWithText>
+        </InputContainer>
         <div className={classes.loginZone}>
-          <GoogleLogin />
+          <InputContainer>
+            <LoginWithGoogleBtn />
+          </InputContainer>
           <div className={classes.loginFail}>
             {auth.isLogin === -1 ? (
               <span>Login Failed</span>
