@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
+import { Box, Grid, makeStyles } from '@material-ui/core';
 import TodoHeader from './TodoHeader';
 import Todos from './Todos';
 const useStyles = makeStyles({
@@ -11,11 +11,9 @@ const useStyles = makeStyles({
 const TodoList = () => {
   const classes = useStyles();
   return (
-    <Grid container className={classes.container}>
-      <Grid item xs={12}>
+    <Grid container justify="space-around">
+      <Grid item xs={7}>
         <TodoHeader />
-      </Grid>
-      <Grid item xs={12}>
         <Todos />
       </Grid>
     </Grid>
