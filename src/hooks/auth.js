@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Cookies from 'universal-cookie';
-import { BE_HOST, BE_PROTOCAL } from '../constants';
 import jwtDecode from 'jwt-decode';
+import apis from "utils/apis"
 const cookies = new Cookies();
 export const useAuth = () => {
   const [isLogin, setLoginStatus] = useState(undefined);
   const [userInfo, setUserInfo] = useState({});
-  async function verifyToken() {
+  const verifyToken = useCallback(async function () {
     const token = cookies.get('todo-app-token');
     if (token) {
       const userInfo = jwtDecode(token);
       const date = new Date();
       //userInfo.exp is unix time
       if (userInfo && userInfo.exp > date.getTime() / 1000) {
-        const resp = await loginBackend(token);
-        if (resp && resp.email === userInfo.email) {
-          setUserInfo({ token, ggInfo: userInfo, ...resp });
+        const remoteUserInfo = await apis.validateWithBackend(token);
+        if (remoteUserInfo && remoteUserInfo.email === userInfo.email) {
+          setUserInfo({ token, ggInfo: userInfo, ...remoteUserInfo });
           setLoginStatus(true);
           return;
         } else {
@@ -25,30 +25,14 @@ export const useAuth = () => {
       }
     }
     setLoginStatus(false);
-  }
+  }, [])
   useEffect(() => {
     verifyToken();
-    // eslint-disable-next-line
-  }, []);
-  const loginBackend = async (jwtToken) => {
-    if (jwtToken) {
-      return fetch(BE_PROTOCAL + '://' + BE_HOST + '/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          tokenId: jwtToken,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => data)
-        .catch((error) => error);
-    }
-  };
+  }, [verifyToken]);
+
   const validateToken = async (response) => {
     if (response && response.tokenObj) {
-      const resp = await loginBackend(response.tokenObj.id_token);
+      const resp = await apis.validateWithBackend(response.tokenObj.id_token);
       const userInfo = jwtDecode(response.tokenObj.id_token);
       if (resp && resp.email === userInfo.email) {
         setToken(response.tokenObj);
@@ -70,9 +54,9 @@ export const useAuth = () => {
   };
   return {
     isLogin,
+    userInfo,
     validateToken,
     setLoginStatus,
     logOut,
-    userInfo,
   };
 };
