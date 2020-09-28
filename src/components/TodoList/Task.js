@@ -1,14 +1,10 @@
-import React, { useContext } from 'react';
 import {
-  Grid,
-  FormControlLabel,
-  Checkbox,
-  makeStyles,
-  IconButton,
+  Checkbox, Grid, IconButton, makeStyles
 } from '@material-ui/core';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import React, { useContext } from 'react';
 import TodosContext from '../../contexts/todos';
 const useStyles = makeStyles({
   container: {
@@ -57,17 +53,13 @@ const TodoList = ({ detail, updateTodo, deleteTodo }) => {
       }
     >
       <Grid item xs={11} onClick={rowClick}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              icon={<RadioButtonUncheckedIcon />}
-              checkedIcon={<CheckCircleOutlineIcon />}
-              checked={detail && detail.status === 'Completed' ? true : false}
-              onChange={handleChange}
-              name="checkedB"
-              color="primary"
-            />
-          }
+        <Checkbox
+          icon={<RadioButtonUncheckedIcon />}
+          checkedIcon={<CheckCircleOutlineIcon />}
+          checked={detail && detail.status === 'Completed' ? true : false}
+          onChange={handleChange}
+          name="checkedB"
+          color="primary"
         />
         {detail.title}
       </Grid>
