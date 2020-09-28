@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 
-const getUserInfo = (token?: string) => {
+const getInfoFromToken = (token?: string) => {
   if (!token) return false;
   const userInfo: any = jwtDecode(token);
   return userInfo;
@@ -14,4 +14,4 @@ const validateUserInfo = (userInfo: any) => {
   }
   return false;
 };
-export default { getUserInfo, validateUserInfo };
+export default { getInfoFromToken, validateUserInfo };
