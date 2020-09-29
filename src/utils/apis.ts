@@ -24,7 +24,7 @@ const updateTodo = async (payload: any) => {
   const { data } = await todosClient.post('/tasks/update', {
     ...payload,
   });
-  return data?.success;
+  return data;
 };
 const deleteTodo = async (payload: any) => {
   const { data } = await todosClient.post('/tasks/delete', {
