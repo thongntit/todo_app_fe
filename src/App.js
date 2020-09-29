@@ -6,7 +6,6 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 // Components
 import AppRouter from './components/AppRouter';
-import Loading from './components/Loading';
 // Context
 import AuthContext from './contexts/auth';
 import TodosContext from './contexts/todos';
@@ -30,16 +29,15 @@ const useStyles = makeStyles({
 });
 function App() {
   const classes = useStyles();
-  const { userInfo, isLogin, ...authContext } = useAuth();
   return (
     <ThemeProvider theme={theme}>
 
       <div className={classes.app}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <BrowserRouter>
-            <AuthContext.Provider value={{ userInfo, isLogin, ...authContext }}>
-              <TodosContext.Provider value={useTodos(userInfo)}>
-                {isLogin === undefined ? <Loading /> : <AppRouter />}
+            <AuthContext.Provider value={useAuth()}>
+              <TodosContext.Provider value={useTodos()}>
+                <AppRouter />
               </TodosContext.Provider>
             </AuthContext.Provider>
           </BrowserRouter>

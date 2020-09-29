@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { BE_HOST, BE_PROTOCAL } from '../constants';
 
-export const useTodos = (userInfo) => {
+export const useTodos = () => {
   const [todos, setTodos] = useState([]);
   const [selectedId, setSelectedId] = useState('');
+  const [userInfo, setUserInfo] = useState({})
   const getTodos = async () => {
     if (userInfo && Object.keys(userInfo).length > 0) {
       const resp = await fetch(
@@ -89,11 +90,12 @@ export const useTodos = (userInfo) => {
   };
   return {
     todos,
+    selectedId,
     getTodos,
     addTodo,
     updateTodo,
     deleteTodo,
-    selectedId,
     setSelectedId,
+    setUserInfo
   };
 };
