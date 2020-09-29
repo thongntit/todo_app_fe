@@ -1,92 +1,31 @@
 import { useState } from 'react';
-import { BE_HOST, BE_PROTOCAL } from '../constants';
+import { apisUtils } from 'utils';
 
 export const useTodos = () => {
   const [todos, setTodos] = useState([]);
   const [selectedId, setSelectedId] = useState('');
   const [userInfo, setUserInfo] = useState({})
   const getTodos = async () => {
-    if (userInfo && Object.keys(userInfo).length > 0) {
-      const resp = await fetch(
-        BE_PROTOCAL + '://' + BE_HOST + '/tasks/getAllTasks',
-        {
-          method: 'post',
-          headers: {
-            Authorization: 'Bearer ' + userInfo.token,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: userInfo.id,
-          }),
-        }
-      ).then((res) => res.json());
-      setTodos(resp.data);
-    }
+    const todos = await apisUtils.getTodos(userInfo.id)
+    setTodos(todos);
   };
   const addTodo = async (params) => {
-    if (userInfo && params.title) {
-      const resp = await fetch(
-        BE_PROTOCAL + '://' + BE_HOST + '/tasks/create',
-        {
-          method: 'post',
-          headers: {
-            Authorization: 'Bearer ' + userInfo.token,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: userInfo.id,
-            title: params.title,
-          }),
-        }
-      )
-        .then((res) => res.json())
-        .catch(() => false);
-      setTodos([...todos, resp]);
-      return resp;
-    }
-    return false;
+    const todo = await apisUtils.addTodo(params, userInfo.id)
+    if (!todo) return todo
+    setTodos([...todos, todo]);
+    return todo
   };
   const updateTodo = async (payload) => {
-    if (userInfo && payload) {
-      const resp = await fetch(
-        BE_PROTOCAL + '://' + BE_HOST + '/tasks/update',
-        {
-          method: 'post',
-          headers: {
-            Authorization: 'Bearer ' + userInfo.token,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        }
-      )
-        .then((res) => res.json())
-        .catch(() => false);
-      setTodos([...todos.filter((todo) => todo.id !== payload.id), resp]);
-      return resp;
-    }
-    return false;
+    const resp = await apisUtils.updateTodo(payload)
+    if (!resp && !resp?.success) return false
+    setTodos([...todos.filter((todo) => todo.id !== payload.id), resp]);
+    return resp
   };
   const deleteTodo = async (payload) => {
-    if (userInfo && payload) {
-      const resp = await fetch(
-        BE_PROTOCAL + '://' + BE_HOST + '/tasks/delete',
-        {
-          method: 'post',
-          headers: {
-            Authorization: 'Bearer ' + userInfo.token,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        }
-      )
-        .then((res) => res.json())
-        .catch(() => false);
-      if (resp) {
-        setTodos([...todos.filter((todo) => todo.id !== payload.id)]);
-      }
-      return resp;
-    }
-    return false;
+    const resp = await apisUtils.deleteTodo(payload)
+    if (!resp && !resp?.success) return false
+    setTodos([...todos.filter((todo) => todo.id !== payload.id)]);
+    return resp
   };
   return {
     todos,

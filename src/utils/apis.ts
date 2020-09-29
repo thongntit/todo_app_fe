@@ -1,5 +1,5 @@
 import { BE_HOST, BE_PROTOCAL } from 'constants/index';
-
+import { todosClient } from './request';
 const validateWithBackend = async (jwtToken: string) => {
   if (jwtToken) {
     return fetch(BE_PROTOCAL + '://' + BE_HOST + '/auth/login', {
@@ -16,31 +16,35 @@ const validateWithBackend = async (jwtToken: string) => {
       .catch((error) => error);
   }
 };
-
-// const addTodo = async (params) => {
-//   const token = cookies.get('todo-app-token');
-//   if (token) {
-//     const userInfo = jwtDecode(token);
-//   if (userInfo && params.title) {
-//     const resp = await fetch(
-//       BE_PROTOCAL + '://' + BE_HOST + '/tasks/create',
-//       {
-//         method: 'post',
-//         headers: {
-//           Authorization: 'Bearer ' + userInfo.token,
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           userId: userInfo.id,
-//           title: params.title,
-//         }),
-//       }
-//     )
-//       .then((res) => res.json())
-//       .catch(() => false);
-//     setTodos([...todos, resp]);
-//     return resp;
-//   }
-//   return false;
-// };
-export default { validateWithBackend };
+const getTodos = async (userId: string) => {
+  const { data } = await todosClient.post('/tasks/getAllTasks', {
+    userId,
+  });
+  return data?.data;
+};
+const addTodo = async (payload: any, userId: string) => {
+  const { data } = await todosClient.post('/tasks/create', {
+    userId,
+    title: payload.title,
+  });
+  return data;
+};
+const updateTodo = async (payload: any) => {
+  const { data } = await todosClient.post('/tasks/update', {
+    ...payload,
+  });
+  return data?.success;
+};
+const deleteTodo = async (payload: any) => {
+  const { data } = await todosClient.post('/tasks/delete', {
+    ...payload,
+  });
+  return data?.success;
+};
+export default {
+  validateWithBackend,
+  getTodos,
+  addTodo,
+  updateTodo,
+  deleteTodo,
+};
