@@ -7,6 +7,8 @@ export const useAuth = () => {
     const token = commonUtils.getAccessToken()
     const tokenInfo = userUtils.getInfoFromToken(token)
     if (!tokenInfo) setLoginStatus(false);
+    const valid = userUtils.validateUserInfo(tokenInfo)
+    if (!valid) setLoginStatus(false);
     const remoteUserInfo = await apisUtils.validateWithBackend(token);
     if (remoteUserInfo && remoteUserInfo.email === tokenInfo.email) {
       setUserInfo({ token, ggInfo: tokenInfo, ...remoteUserInfo });
