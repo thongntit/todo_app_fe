@@ -1,6 +1,6 @@
 import {
   Box,
-  Checkbox, Grid, IconButton, makeStyles, CircularProgress, Typography
+  Checkbox, Grid, IconButton, makeStyles, CircularProgress
 } from '@material-ui/core';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -42,18 +42,19 @@ const TodoList = ({ detail, updateTodo, deleteTodo }) => {
       ...detail,
     });
   };
+  const isSelected = detail.id === todos.selectedId
   return (
     <Grid
       container
       justify="space-between"
       className={
-        detail.id === todos.selectedId ? classes.checkedRow : classes.container
+        isSelected ? classes.checkedRow : classes.container
       }
     >
       <Box onClick={rowClick} flexDirection="row" display="flex">
         <Checkbox
-          icon={todos.loading ? <CircularProgress size={24} className={classes.fabProgress} color="default" thickness="6" /> : <RadioButtonUncheckedIcon />}
-          checkedIcon={todos.loading ? <CircularProgress size={24} className={classes.fabProgress} color="default" thickness="6" /> : <CheckCircleOutlineIcon />}
+          icon={isSelected && todos.loading ? <CircularProgress size={24} className={classes.fabProgress} color="default" thickness="6" /> : <RadioButtonUncheckedIcon />}
+          checkedIcon={isSelected && todos.loading ? <CircularProgress size={24} className={classes.fabProgress} color="default" thickness="6" /> : <CheckCircleOutlineIcon />}
           checked={detail && detail.status === 'Completed' ? true : false}
           onChange={handleChange}
           name="checkedB"
