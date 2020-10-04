@@ -1,6 +1,6 @@
 import {
   Box,
-  Checkbox, Grid, IconButton, makeStyles, CircularProgress
+  Checkbox, Grid, IconButton, makeStyles, CircularProgress, Typography
 } from '@material-ui/core';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -50,7 +50,7 @@ const TodoList = ({ detail, updateTodo, deleteTodo }) => {
         detail.id === todos.selectedId ? classes.checkedRow : classes.container
       }
     >
-      <Box onClick={rowClick}>
+      <Box onClick={rowClick} flexDirection="row" display="flex">
         <Checkbox
           icon={todos.loading ? <CircularProgress size={24} className={classes.fabProgress} color="default" thickness="6" /> : <RadioButtonUncheckedIcon />}
           checkedIcon={todos.loading ? <CircularProgress size={24} className={classes.fabProgress} color="default" thickness="6" /> : <CheckCircleOutlineIcon />}
@@ -59,7 +59,9 @@ const TodoList = ({ detail, updateTodo, deleteTodo }) => {
           name="checkedB"
           color="default"
         />
-        {detail.title}
+        <Box alignSelf="center" fontWeight="fontWeightBold">
+          {detail.title}
+        </Box>
       </Box>
       <Box>
         <IconButton onClick={handleDelete}>
