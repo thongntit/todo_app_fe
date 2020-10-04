@@ -3,10 +3,11 @@ import {
   Grid,
   makeStyles,
   OutlinedInput,
-  Button,
   Typography,
 } from '@material-ui/core';
-import TodosContext from '../../contexts/todos';
+import TodosContext from 'contexts/todos';
+import { MaxHeightButton as Button } from "components/Common"
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 const useStyles = makeStyles({
   container: {
     padding: 8,
@@ -15,16 +16,6 @@ const useStyles = makeStyles({
     width: '100%',
     height: 40,
     borderRadius: 'unset',
-  },
-  addTodoBtn: {
-    marginLeft: 8,
-    width: '100%',
-    height: 40,
-    borderRadius: 'unset',
-    backgroundColor: '#FFD447',
-    '&:hover': {
-      backgroundColor: '#f9c310',
-    },
   },
 });
 const AddTodo = () => {
@@ -47,7 +38,7 @@ const AddTodo = () => {
     }
   };
   return (
-    <Grid container className={classes.container}>
+    <Grid container className={classes.container} spacing={1}>
       <Grid item xs={12}>
         <Typography variant="h6">Danh sách việc phải làm</Typography>
       </Grid>
@@ -63,9 +54,9 @@ const AddTodo = () => {
         <Button
           variant="contained"
           color="primary"
-          className={classes.addTodoBtn}
           onClick={handleSubmit}
         >
+          <AddCircleOutlineIcon />
           Thêm
         </Button>
       </Grid>

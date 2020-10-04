@@ -1,4 +1,5 @@
 import {
+  Box,
   Checkbox, Grid, IconButton, makeStyles
 } from '@material-ui/core';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
@@ -6,13 +7,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import React, { useContext } from 'react';
 import TodosContext from '../../contexts/todos';
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     marginLeft: 8,
     padding: 8,
     borderBottom: '1px solid #ececec',
     '&:hover': {
-      backgroundColor: '#ececec',
       cursor: 'pointer',
     },
   },
@@ -24,10 +24,15 @@ const useStyles = makeStyles({
       cursor: 'pointer',
     },
   },
-  taskDetail: {
-    alignSelf: 'center',
+  rootCheckbox: {
+
   },
-});
+  checkedBox: {
+    "& > span > svg": {
+      color: "black",
+    }
+  }
+}));
 const TodoList = ({ detail, updateTodo, deleteTodo }) => {
   const classes = useStyles();
   const todos = useContext(TodosContext);
@@ -48,26 +53,31 @@ const TodoList = ({ detail, updateTodo, deleteTodo }) => {
   return (
     <Grid
       container
+      justify="space-between"
       className={
         detail.id === todos.selectedId ? classes.checkedRow : classes.container
       }
     >
-      <Grid item xs={11} onClick={rowClick}>
+      <Box onClick={rowClick}>
         <Checkbox
           icon={<RadioButtonUncheckedIcon />}
           checkedIcon={<CheckCircleOutlineIcon />}
           checked={detail && detail.status === 'Completed' ? true : false}
           onChange={handleChange}
           name="checkedB"
-          color="primary"
+          color="default"
+          classes={{
+            root: classes.rootCheckbox,
+            checked: classes.checkedBox
+          }}
         />
         {detail.title}
-      </Grid>
-      <Grid item xs={1}>
+      </Box>
+      <Box>
         <IconButton onClick={handleDelete}>
           <DeleteIcon />
         </IconButton>
-      </Grid>
+      </Box>
     </Grid>
   );
 };
